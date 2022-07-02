@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Weather for Corner Brook</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Weather for {{ city_name }}</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
 </head>
 <body>
-      {{ weather }}
+    <h1>Weather Forecast for {{ city_name }}</h1>
+    <p>Coordinates: {{ coordinates }}</p>
+    <p>Sunrise: {{ sunrise }} Sunset: {{ sunset }}</p>
+    <br>
+    <h2>Current Weather</h2>
+    <img src="{{ current_icon }}"
+         alt="{{ current_conditions }}"
+         width=100px
+         height=auto />
+    <h3>{{ current_temp }}&#176;C {{ current_conditions }}</h3>
+    <p></p>
+
+    <br>
+    <p>Last Updated: {{ last_updated }}</p>
 </body>
 </html>
