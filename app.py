@@ -4,6 +4,7 @@ from flask import Flask, render_template
 from dotenv import load_dotenv
 import os
 from datetime import datetime
+from flask_wtf import FlaskForm
 
 app = Flask(__name__)
 
@@ -15,12 +16,12 @@ def index():
     return render_template("index.html")
 
 
-@app.route('/<city_id>')
-def weather(city_id):
+@app.route('/city/<city>')
+def weather(city):
     city_url = 'http://api.openweathermap.org/data/2.5/weather?appid=' + \
                os.environ.get("OPEN_WEATHER_MAP_API_KEY") + \
-               '&id='
-    response = requests.get(city_url + city_id)
+               '&q='
+    response = requests.get(city_url + city)
     weather_data = json.loads(response.text)
 
     def timestamp_to_datetime(epoch):
@@ -43,7 +44,7 @@ def weather(city_id):
     def mps_to_kmph(mps):
         return round(3.6 * mps)
 
-    city_name = weather_data["name"]
+    city = weather_data["name"]
     coordinates = str(weather_data["coord"]["lat"]) + ', ' + str(weather_data["coord"]["lon"])
     last_updated = timestamp_to_datetime(weather_data["dt"])
     sunrise = timestamp_to_time(weather_data["sys"]["sunrise"])
@@ -55,9 +56,10 @@ def weather(city_id):
     feels_like = kelvin_to_celsius(weather_data["main"]["feels_like"])
     wind_speed = mps_to_kmph(weather_data["wind"]["speed"])
     wind_direction = deg_to_cardinal(weather_data["wind"]["deg"])
+    humidity = weather_data["main"]["humidity"]
 
     return render_template("weather.html",
-                           city_name=city_name,
+                           city_name=city,
                            coordinates=coordinates,
                            last_updated=last_updated,
                            sunrise=sunrise,
@@ -67,7 +69,8 @@ def weather(city_id):
                            current_icon=current_icon,
                            feels_like=feels_like,
                            wind_speed=wind_speed,
-                           wind_direction=wind_direction)
+                           wind_direction=wind_direction,
+                           humidity=humidity)
 
 
 if __name__ == '__main__':
