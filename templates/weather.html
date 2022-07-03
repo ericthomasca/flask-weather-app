@@ -4,6 +4,7 @@
     <title>Weather for {{ city_name }}</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
     <h1>Weather Forecast for {{ city_name }}</h1>
@@ -14,10 +15,10 @@
     <img src="{{ current_icon }}"
          alt="{{ current_conditions }}"
          width=100px
-         height=auto />
+         height=auto/>
     <h3>{{ current_temp }}&#176;C {{ current_conditions }}</h3>
-    <p></p>
-
+    <p>Feels Like: {{ feels_like }}&#176;C</p>
+    <p>Wind: {{ wind_speed }} km/h {{ wind_direction }}</p>
     <br>
     <p>Last Updated: {{ last_updated }}</p>
 </body>
