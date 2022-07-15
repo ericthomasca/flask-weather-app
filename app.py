@@ -20,7 +20,7 @@ def index():
 def weather(city):
     city_url = 'http://api.openweathermap.org/data/2.5/weather?appid=' + \
                os.environ.get("OPEN_WEATHER_MAP_API_KEY") + \
-               '&q='
+               '&q=' + city
     response = requests.get(city_url + city)
     weather_data = json.loads(response.text)
 

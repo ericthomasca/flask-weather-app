@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Eric's Weather App</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Eric's Weather App{% endblock %}
+{% block content %}
     <h1>Welcome to Eric's Weather App!</h1>
     <br>
     <form action="/">
@@ -15,5 +9,4 @@
         </label>
         <input type="submit" value="Get Weather">
     </form>
-</body>
-</html>
+{% endblock %}
